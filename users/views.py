@@ -1,14 +1,32 @@
 from django.shortcuts import render,HttpResponse
 from .models import Booksdata
+from django.db.models import Q
 
 # Create your views here.
 def home(request):
     if request.method == 'POST':
         title = request.POST['search']
+        if (len(title)<3):
+            count=0
+            x = Booksdata.objects.all()
+            b = []
+            for i in x:
+                if count==100:
+                    break
+                b.append(i)
+                count+=1
+            next_id = i.id
+            default_view = True
+            no_result_found = False
+            return render(request,'home.html',{'x':b,'next_id':next_id,'d_v':default_view,'no_result_found':no_result_found})    
         print(title)
-        x = Booksdata.objects.filter(title=title).values()
-        print(x)
-        return render(request,'home.html',{'x':x})
+        default_view = False
+        x = Booksdata.objects.filter(Q(title__icontains=title) | Q(authors__icontains=title) | Q(publisher__icontains=title))
+        if len(x)==0:
+            no_result_found=True
+        else:
+            no_result_found = False
+        return render(request,'home.html',{'x':x,'d_v':default_view,'prev_id': 1,'no_result_found':no_result_found})
     else:
         count=0
         x = Booksdata.objects.all()
@@ -19,7 +37,9 @@ def home(request):
             b.append(i)
             count+=1
         next_id = i.id
-        return render(request,'home.html',{'x':b,'next_id':next_id})
+        default_view = True
+        no_result_found = False
+        return render(request,'home.html',{'x':b,'next_id':next_id,'d_v':default_view,'prev_id': 1,'no_result_found':no_result_found})
 def join_hood(req,id):
     a = []
     for i in range(100):
@@ -30,4 +50,6 @@ def join_hood(req,id):
         prev_id = 1
     else:
         prev_id = id-100
-    return render(req,'home.html',{'x':a,'next_id':next_id,'prev_id': prev_id})
+    default_view = True
+    no_result_found = False
+    return render(req,'home.html',{'x':a,'next_id':next_id,'prev_id': prev_id,'d_v':default_view,'no_result_found':no_result_found})

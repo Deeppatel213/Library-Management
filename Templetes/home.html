@@ -5,6 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="refresh" content="10000">
 <link rel="stylesheet" href="{% static 'home.css' %}">
+<style>
+  button
+  {
+  float: center;
+  padding: 12px;
+  font-size: 18px;
+  line-height: 30px;
+  border-radius: 4px;
+  background-color: #777;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  }
+  /* button :hover
+  {
+    background-color: aliceblue;
+    color: black;
+  } */
+</style>
 </head>
 <body>
 
@@ -15,14 +34,21 @@
   <a href="#contact">Contact</a>
   <a href="#about">About</a>
   <div class="header-right">
-    <form action="" method="post">
+    <form action="/" method="post" id="search">
     {% csrf_token %}
-    <input type="text" placeholder="Search" name="search" style="float: right;padding: 12px;font-size: 18px;line-height: 30px;border-radius: 4px;">
-    </form>
+    <!-- <input type="button" value="Search"  style="float: right;padding: 12px;font-size: 18px;line-height: 30px;border-radius: 4px;"> -->
+    
+    <button type="submit" form="search" value="submit" style="float: right; margin-left: 10px;">Search</button>
+    <input type="text" placeholder="Search" name="search" style="float: relative;padding: 12px;font-size: 18px;line-height: 30px;border-radius: 4px;">
+  </form>
+  <!-- <a href="/" style="float:right">Search</a> -->
     </div>
 </div>
 <div style="padding-left:20px; padding-right: 20px; padding-top: 100px;">
-  <p>Books</p>
+  <p style="  font-family: Arial, Helvetica, sans-serif; font-size: 25px; font-weight: bold;">Books</p>
+  {% if no_result_found %}
+  <h1 style="color: red;">No Result Found</h1>
+  {% endif %}
   {% for book in x %}
   <button class="collapsible" href = '#1'>{{book.title}}</button>
   <div class="content">
@@ -64,9 +90,11 @@
     </table>
   </div>
   {% endfor %}
-
-  <h1 style="color: black;">Book Id{{ next_id }}</h1>
-  <div style="text-align: center;"><a href="/books/{{prev_id}}">prev.</a><a href="/books/{{next_id}}/">next</a></div>
+  {% if d_v%}
+  <div style="text-align: center;">
+    <button><a href="/books/{{prev_id}}" style="text-decoration: none; color: white;">Previous</a></button>
+    <button><a href="/books/{{next_id}}/" style="text-decoration: none; color: white;">Next</a></button></div>
+  {% endif %}
   <script>
     var coll = document.getElementsByClassName("collapsible");
     var i;
