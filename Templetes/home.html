@@ -5,22 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="refresh" content="10000">
 <link rel="stylesheet" href="{% static 'home.css' %}">
-
 </head>
 <body>
 
-<div class="header">
-  <a href="#default" class="logo">The Library</a>
+<div class="header" style="  position: fixed;top: 0;width: 100%;">
+  <a href="/" class="logo">The Library</a>
+  <a class="active" href="/">Home</a>
+  <a href="/">Login</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
   <div class="header-right">
-    <a class="active" href="#home">Home</a>
-    <a href="#home">Login</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
-  </div>
+    <form action="" method="post">
+    {% csrf_token %}
+    <input type="text" placeholder="Search" name="search" style="float: right;padding: 12px;font-size: 18px;line-height: 30px;border-radius: 4px;">
+    </form>
+    </div>
 </div>
-<div style="padding-left:20px; padding-right: 20px;">
-
-  <p>Collapsible Set:</p>
+<div style="padding-left:20px; padding-right: 20px; padding-top: 100px;">
+  <p>Books</p>
   {% for book in x %}
   <button class="collapsible" href = '#1'>{{book.title}}</button>
   <div class="content">
@@ -64,7 +66,7 @@
   {% endfor %}
 
   <h1 style="color: black;">Book Id{{ next_id }}</h1>
-  <div style="text-align: center;"><a href="/{{prev_id}}">prev.</a><a href="/{{next_id}}/">next</a></div>
+  <div style="text-align: center;"><a href="/books/{{prev_id}}">prev.</a><a href="/books/{{next_id}}/">next</a></div>
   <script>
     var coll = document.getElementsByClassName("collapsible");
     var i;

@@ -19,5 +19,6 @@ from users import views
 
 urlpatterns = [
     path('', views.home),
-    path ('<int:id>/', views.join_hood, name='join_hood'),
+    path ('books/<int:id>/', views.join_hood),
+    path ('books', views.home),
 ]

@@ -2,17 +2,24 @@ from django.shortcuts import render,HttpResponse
 from .models import Booksdata
 
 # Create your views here.
-def home(req):
-    count=0
-    x = Booksdata.objects.all()
-    b = []
-    for i in x:
-        if count==100:
-              break
-        b.append(i)
-        count+=1
-    next_id = i.id
-    return render(req,'home.html',{'x':b,'next_id':next_id})
+def home(request):
+    if request.method == 'POST':
+        title = request.POST['search']
+        print(title)
+        x = Booksdata.objects.filter(title=title).values()
+        print(x)
+        return render(request,'home.html',{'x':x})
+    else:
+        count=0
+        x = Booksdata.objects.all()
+        b = []
+        for i in x:
+            if count==100:
+                break
+            b.append(i)
+            count+=1
+        next_id = i.id
+        return render(request,'home.html',{'x':b,'next_id':next_id})
 def join_hood(req,id):
     a = []
     for i in range(100):
