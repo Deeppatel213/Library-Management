@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="10000">
+<link rel="stylesheet" href="{% static 'home.css' %}">
+
+</head>
+<body>
+
+<div class="header">
+  <a href="#default" class="logo">The Library</a>
+  <div class="header-right">
+    <a class="active" href="#home">Home</a>
+    <a href="#home">Login</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About</a>
+  </div>
+</div>
+<div style="padding-left:20px; padding-right: 20px;">
+
+  <p>Collapsible Set:</p>
+  {% for book in x %}
+  <button class="collapsible" href = '#1'>{{book.title}}</button>
+  <div class="content">
+    <table border="solid">
+      <tr>
+        <td style="width: 100%;">Authors</td>
+        <td style="width: 100%;">{{book.authors}}</td>
+        <td style="width: 100%;">Language_Code</td>
+        <td style="width: 100%;">{{book.language_code}}</td>
+      </tr>
+      <tr>
+        <td>Average Rating</td>
+        <td>{{book.average_rating}}</td>
+        <td>Number of Pages</td>
+        <td>{{book.id}}</td>
+      </tr>
+      <tr>
+        <td>Rating Count</td>
+        <td>{{book.ratings_count}}</td>
+        <td>Text Reviews Count</td>
+        <td>{{book.text_reviews_count}}</td>
+      </tr>
+      <tr>
+        <td>Publication Date</td>
+        <td>{{book.publication_date}}</td>
+        <td>Publisher</td>
+        <td>{{book.publisher}}</td>
+      </tr>
+      <tr>
+        <td>Bookshelf Number</td>
+        <td>{{book.bookshelf_number}}</td>
+        <td>Level</td>
+        <td>{{book.level}}</td>
+      </tr>
+      <tr>
+        <td colspan="2">availabe</td>
+        <td colspan="2">{{book.available}}</td>
+      </tr>
+    </table>
+  </div>
+  {% endfor %}
+
+  <h1 style="color: black;">Book Id{{ next_id }}</h1>
+  <div style="text-align: center;"><a href="/{{prev_id}}">prev.</a><a href="/{{next_id}}/">next</a></div>
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        } 
+      });
+    }
+  </script>
+</div>
+</body>
+</html>
