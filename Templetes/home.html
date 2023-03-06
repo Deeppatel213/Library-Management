@@ -18,19 +18,18 @@
   text-decoration: none;
   cursor: pointer;
   }
-  /* button :hover
+  button:hover
   {
     background-color: aliceblue;
     color: black;
-  } */
+  }
 </style>
 </head>
 <body>
-
 <div class="header" style="  position: fixed;top: 0;width: 100%;">
   <a href="/" class="logo">The Library</a>
   <a class="active" href="/">Home</a>
-  <a href="/">Login</a>
+  <a href="login">Login</a>
   <a href="#contact">Contact</a>
   <a href="#about">About</a>
   <div class="header-right">
@@ -92,8 +91,8 @@
   {% endfor %}
   {% if d_v%}
   <div style="text-align: center;">
-    <button><a href="/books/{{prev_id}}" style="text-decoration: none; color: white;">Previous</a></button>
-    <button><a href="/books/{{next_id}}/" style="text-decoration: none; color: white;">Next</a></button></div>
+    <a href="/books/{{prev_id}}" style="text-decoration: none;"><button> Previous</button></a>
+    <a href="/books/{{next_id}}/" style="text-decoration: none; color: white;"><button>Next</button></a></div>
   {% endif %}
   <script>
     var coll = document.getElementsByClassName("collapsible");

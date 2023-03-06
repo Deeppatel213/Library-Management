@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponse
 from .models import Booksdata
 from django.db.models import Q
+from django.contrib.auth.models import User, auth
 
 # Create your views here.
 def home(request):
@@ -53,3 +54,20 @@ def join_hood(req,id):
     default_view = True
     no_result_found = False
     return render(req,'home.html',{'x':a,'next_id':next_id,'prev_id': prev_id,'d_v':default_view,'no_result_found':no_result_found})
+
+
+def login(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        user = auth.authenticate(username=username,password=password)
+        username = request.user.username
+        if user is not None:
+            auth.login(request, user)
+            print('loged in')
+            return render(request,'login.html')
+        else:
+            print('user not found')
+            return render(request, 'login.html')
+    else:
+        return render(request, 'login.html')

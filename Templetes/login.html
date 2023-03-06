@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="10000">
+<link rel="stylesheet" href="{% static 'home.css' %}">
+<style>
+  button
+  {
+  float: center;
+  padding: 12px;
+  font-size: 18px;
+  line-height: 30px;
+  border-radius: 4px;
+  background-color: #777;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  }
+  button:hover
+  {
+    background-color: aliceblue;
+    color: black;
+  }
+  .box
+  {
+    border: solid;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background-color: #ddd;
+    color: black;
+    margin-left: 40%;
+    margin-top: 15%;
+    width: 25%;
+    padding: 10px;
+    font-size: 25px;
+  }
+  input{
+  float: relative;padding: 12px;font-size: 18px;line-height: 30px;border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="header" style="  position: fixed;top: 0;width: 100%;">
+  <a href="/" class="logo">The Library</a>
+  <a href="/">Home</a>
+  <a class="active" href="login">Login</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <div class="header-right">
+    <form action="/" method="post" id="search">
+    {% csrf_token %}
+    <button type="submit" form="search" value="submit" style="float: right; margin-left: 10px;">Search</button>
+    <input type="text" placeholder="Search" name="search">
+  </form>
+    </div>
+</div>
+<div class="box">
+  Login
+  <br><br>
+  <form action="" method="post">
+    {% csrf_token %}
+  <label for="username">Username <br></label>
+  <input type="text" name="username" id="username"><br>
+  <label for="password">Password <br></label>
+  <input type="password" name="password" id="password"> <br>
+  <button style="margin-top: 10px;">
+    Login
+  </button>
+  </form>
+</div>
+</body>
+</html>
