@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="10000">
+<link rel="stylesheet" href="{% static 'home.css' %}">
+<style>
+  button
+  {
+  float: center;
+  padding: 12px;
+  font-size: 18px;
+  line-height: 30px;
+  border-radius: 4px;
+  background-color: #777;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  }
+  button:hover
+  {
+    background-color: aliceblue;
+    color: black;
+  }
+</style>
+</head>
+<body>
+<div class="header" style="  position: fixed;top: 0;width: 100%;">
+  <a href="/" class="logo">The Library</a>
+  <a class="active" href="/">Home</a>
+  <a href="login">Logout</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <div class="header-right">
+    <form action="/" method="post" id="search">
+    {% csrf_token %}
+    <!-- <input type="button" value="Search"  style="float: right;padding: 12px;font-size: 18px;line-height: 30px;border-radius: 4px;"> -->
+    
+    <button type="submit" form="search" value="submit" style="float: right; margin-left: 10px;">Search</button>
+    <input type="text" placeholder="Search" name="search" style="float: relative;padding: 12px;font-size: 18px;line-height: 30px;border-radius: 4px;">
+  </form>
+  <!-- <a href="/" style="float:right">Search</a> -->
+    </div>
+</div>
+<div style="padding-left:20px; padding-right: 20px; padding-top: 100px;">
+  <p style="  font-family: Arial, Helvetica, sans-serif; font-size: 25px; font-weight: bold;">Books</p>
+  {% if no_result_found %}
+  <h1 style="color: red;">No Result Found</h1>
+  {% endif %}
+  {% for book in x %}
+  <button class="collapsible" href = '#1'>{{book.title}}</button>
+  <div class="content">
+    <table border="solid">
+      <tr>
+        <td style="width: 100%;">Authors</td>
+        <td style="width: 100%;">{{book.authors}}</td>
+        <td style="width: 100%;">Language_Code</td>
+        <td style="width: 100%;">{{book.language_code}}</td>
+      </tr>
+      <tr>
+        <td>Average Rating</td>
+        <td>{{book.average_rating}}</td>
+        <td>Number of Pages</td>
+        <td>{{book.id}}</td>
+      </tr>
+      <tr>
+        <td>Rating Count</td>
+        <td>{{book.ratings_count}}</td>
+        <td>Text Reviews Count</td>
+        <td>{{book.text_reviews_count}}</td>
+      </tr>
+      <tr>
+        <td>Publication Date</td>
+        <td>{{book.publication_date}}</td>
+        <td>Publisher</td>
+        <td>{{book.publisher}}</td>
+      </tr>
+      <tr>
+        <td>Bookshelf Number</td>
+        <td>{{book.bookshelf_number}}</td>
+        <td>Level</td>
+        <td>{{book.level}}</td>
+      </tr>
+      <tr>
+        <td colspan="2">availabe</td>
+        <td colspan="2">{{book.available}}</td>
+      </tr>
+    </table>
+  </div>
+  {% endfor %}
+  {% if d_v%}
+  <div style="text-align: center;">
+    <a href="/books/{{prev_id}}" style="text-decoration: none;"><button> Previous</button></a>
+    <a href="/books/{{next_id}}/" style="text-decoration: none; color: white;"><button>Next</button></a></div>
+  {% endif %}
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        } 
+      });
+    }
+  </script>
+</div>
+</body>
+</html>

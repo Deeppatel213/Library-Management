@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 from .models import Booksdata
 from django.db.models import Q
 from django.contrib.auth.models import User, auth
@@ -65,7 +65,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             print('loged in')
-            return render(request,'login.html')
+            return redirect('/adminpanel/')
         else:
             print('user not found')
             return render(request, 'login.html')
