@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="10000">
+<link rel="stylesheet" href="{% static 'home.css' %}">
+<style>
+  button
+  {
+  float: center;
+  padding: 12px;
+  font-size: 18px;
+  line-height: 30px;
+  border-radius: 4px;
+  background-color: #777;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  }
+  button:hover
+  {
+    background-color: aliceblue;
+    color: black;
+  }
+  .box
+  {
+    border: solid;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background-color: #ddd;
+    color: black;
+    margin-left: 40%;
+    margin-top: 15%;
+    width: 25%;
+    padding: 10px;
+    font-size: 25px;
+  }
+  input{
+  float: relative;padding: 12px;font-size: 18px;line-height: 30px;border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="header" style="  position: fixed;top: 0;width: 100%;">
+  <a href="/" class="logo">The Library</a>
+  <a href="/">Home</a>
+  <a href="login">Login</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <a class="active" href="register">Register</a>
+  <div class="header-right">
+    <form action="/" method="post" id="search">
+    {% csrf_token %}
+    <button type="submit" form="search" value="submit" style="float: right; margin-left: 10px;">Search</button>
+    <input type="text" placeholder="Search" name="search">
+  </form>
+    </div>
+</div>
+<div class="box">
+  <table border="solid" style="border-collapse: collapse;">
+        {% for book in books %}
+        <tr>
+        <td>Book Id</td>
+        <td>{{book.id}}</td>
+        </tr>
+        <tr>
+            <td>Book Name</td>
+            <td>{{book.title}}</td>
+        </tr>
+        <tr>
+            <td>Author</td>
+            <td>{{book.authors}}</td>
+        </tr>
+        <tr>
+            <td>Publisher</td>
+            <td>{{book.publisher}}</td>
+        </tr>   
+        <tr>
+            <td>Number Of Pages</td>
+            <td>{{book.num_pages}}</td>
+        </tr>
+        <tr>
+            <td>Bookshelf Number</td>
+            <td>{{book.bookshelf_number}}</td>
+        </tr>
+        <tr>
+            <td>Level</td>
+            <td>{{book.level}}</td>
+        </tr>
+        <tr>
+            <td>Available</td>
+            <td>{{book.available}}</td>
+        </tr>
+        {% endfor %}
+  </table>
+  <a href="/adminpanel/confirm"><button style="padding-top: 10px; margin-top: 10px;">Confirm</button></a>
+</div>
+</body>
+</html>

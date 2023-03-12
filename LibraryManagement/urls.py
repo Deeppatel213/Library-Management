@@ -21,5 +21,4 @@ urlpatterns = [
     path('', include('users.urls')),
     path('/books/', include('users.urls')),
     path('adminpanel/', include('managerpanel.urls')),
-
 ]

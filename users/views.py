@@ -5,6 +5,8 @@ from django.contrib.auth.models import User, auth
 
 # Create your views here.
 def home(request):
+    if User is not None:
+        pass
     if request.method == 'POST':
         title = request.POST['search']
         if (len(title)<3):
@@ -57,6 +59,7 @@ def join_hood(req,id):
 
 
 def login(request):
+    global user
     if request.method == 'POST':
         username=request.POST['username']
         password=request.POST['password']
@@ -71,3 +74,7 @@ def login(request):
             return render(request, 'login.html')
     else:
         return render(request, 'login.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')

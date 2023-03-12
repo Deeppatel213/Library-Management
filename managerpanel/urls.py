@@ -4,4 +4,6 @@ from managerpanel import views
 
 urlpatterns = [
     path('', views.adminpanel),
+    path('register',views.register),
+    path('confirm',views.confirm),
 ]

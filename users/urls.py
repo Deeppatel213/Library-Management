@@ -22,4 +22,5 @@ urlpatterns = [
     path ('books/<int:id>/', views.join_hood),
     path ('books', views.home),
     path('login',views.login),
+    path('logout',views.logout),
 ]
