@@ -57,12 +57,35 @@
   </form>
     </div>
 </div>
+{% if invalid_userid %}
+    <h1 style="padding-top: 100px; color: red; padding-left: 10px;">Please enter correct student id</h1>
+    <a href="/adminpanel/register" style="padding-left: 10px;"><button>Register Again</button></a>
+{% elif invalid_bookid %}
+    <h1 style="padding-top: 100px; color: red; padding-left: 10px;">Please enter correct Book id</h1>
+    <a href="/adminpanel/register" style="padding-left: 10px;"><button>Register Again</button></a>
+{% else %}
 <div class="box">
   <table border="solid" style="border-collapse: collapse;">
         {% for book in books %}
         <tr>
-        <td>Book Id</td>
-        <td>{{book.id}}</td>
+        <td>Student Id</td>
+        <td>{{stud_id}}</td>
+        </tr>
+        <tr>
+          <td>Student Name</td>
+          <td>{{stud_name}}</td>
+        </tr>
+        <tr>
+          <td>Gender</td>
+          <td>{{gender}}</td>
+        </tr>
+        <tr>
+          <td>Department</td>
+          <td>{{depart}}</td>
+        </tr>
+        <tr>
+          <td>Book Id</td>
+          <td>{{book.id}}</td>
         </tr>
         <tr>
             <td>Book Name</td>
@@ -93,8 +116,9 @@
             <td>{{book.available}}</td>
         </tr>
         {% endfor %}
-  </table>
-  <a href="/adminpanel/confirm"><button style="padding-top: 10px; margin-top: 10px;">Confirm</button></a>
+      </table>
+      <a href="/adminpanel/confirm"><button style="padding-top: 10px; margin-top: 10px;">Confirm</button></a>
+      {% endif %}
 </div>
 </body>
 </html>
